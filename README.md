@@ -88,6 +88,8 @@ __Resizing:__ Standardizing the size of the cropped images to 256x256 pixels to 
   
 ## 2. Model Training
 
+Code in: [Model Training](https://github.com/Yunyaonate/coclear_segmentation/blob/main/Model_training.ipynb)
+
 ### 1. Setting up the Environment
 - Open Google Colab.
 - Enable GPU for faster computation.
@@ -97,17 +99,28 @@ __Resizing:__ Standardizing the size of the cropped images to 256x256 pixels to 
 
 __Splitting the Data:__ Use `sklearn.model_selection.train_test_split` to split our dataset into training, validation, and testing sets using an 8:1:1 ratio.
 
+### 3. Define IoU Metric
+**Accuracy Metric Limitations:**
 
+- **Metric Choice:** Accuracy is often not a good metric for segmentation tasks, especially when there's a class imbalance (e.g., most of the image is background). In such cases, the model might learn to predict the most common class for all inputs, resulting in high accuracy but poor qualitative results.
 
-### 3. U-Net Model Architecture
+- **Alternative Metrics:** Consider using other metrics more suitable for imbalance and segmentation tasks, such as the Intersection over Union (IoU), Dice coefficient, Precision, Recall, or F1 Score. These metrics provide a better understanding of how well the model is performing in terms of actual area covered by predictions versus ground truth.
+
+### 4. U-Net Model Architecture
 Here is the U-Net Architecture we are using.
 ![image 4](img/unet_arch.jpg)
 
-### 4. Data Augmentation
+### 5. Data Augmentation
+
+Since we only have 38 images, data augmentation is essential. 
+
 __Data Loader Setup:__ Use `ImageDataGenerator` to augment our data (useful for training to prevent overfitting and to increase the dataset artificially).
 
 No data augmentation vs. Data augmentation
 
 ![image 5](img/data_augmentation.jpg)
 
-### 5. Model Compilation and Training
+### 6. Model Compilation and Training
+
+Output result (U-Net, Batch size = 1, epochs = 100):
+![image 6](img/result.jpg)

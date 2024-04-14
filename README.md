@@ -104,7 +104,7 @@ __Splitting the Data:__ Use `sklearn.model_selection.train_test_split` to split 
 
 - **Metric Choice:** Accuracy is often not a good metric for segmentation tasks, especially when there's a class imbalance (e.g., most of the image is background). In such cases, the model might learn to predict the most common class for all inputs, resulting in high accuracy but poor qualitative results.
 
-- **Alternative Metrics:** Consider using other metrics more suitable for imbalance and segmentation tasks, such as the Intersection over Union (IoU), Dice coefficient, Precision, Recall, or F1 Score. These metrics provide a better understanding of how well the model is performing in terms of actual area covered by predictions versus ground truth.
+- **Alternative Metrics:** Consider using other metrics more suitable for imbalance and segmentation tasks, such as the Intersection over Union (IoU), Dice coefficient, Precision, Recall, or F1 Score. These metrics provide a better understanding of how well the model is performing in terms of the actual area covered by predictions versus ground truth.
 
 ### 4. U-Net Model Architecture
 Here is the U-Net Architecture we are using.
@@ -122,5 +122,8 @@ No data augmentation vs. Data augmentation
 
 ### 6. Model Compilation and Training
 
-Output result (U-Net, Batch size = 1, epochs = 100):
+- Have tried multiple batch sizes and epochs, and found that batch size = 1, epochs = 100 demo the best result. 
+- Also set checkpoint and early stopper, however, it would accidentally stop early because of the fluctuation of the curve.
+- There's not much change after epoch 30, however, we can still see some flaws in the predicted mask. We need more training data.
+- Output result (U-Net, Batch size = 1, epochs = 100):
 ![image 6](img/result.jpg)
